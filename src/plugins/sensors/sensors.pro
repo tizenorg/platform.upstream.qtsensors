@@ -20,9 +20,14 @@ winrt {
     isEmpty(SENSORS_PLUGINS): SENSORS_PLUGINS = winrt generic
 }
 
+tizen {
+    isEmpty(SENSORS_PLUGINS): SENSORS_PLUGINS = tizen generic
+}
+
 qtHaveModule(simulator) {
     isEmpty(SENSORS_PLUGINS): SENSORS_PLUGINS = simulator generic
 }
+
 
 isEmpty(SENSORS_PLUGINS)|contains(SENSORS_PLUGINS, dummy):SUBDIRS += dummy
 isEmpty(SENSORS_PLUGINS)|contains(SENSORS_PLUGINS, generic):SUBDIRS += generic
@@ -33,3 +38,4 @@ isEmpty(SENSORS_PLUGINS)|contains(SENSORS_PLUGINS, android):android:SUBDIRS += a
 isEmpty(SENSORS_PLUGINS)|contains(SENSORS_PLUGINS, sensorfw):sensorfw:SUBDIRS += sensorfw
 isEmpty(SENSORS_PLUGINS)|contains(SENSORS_PLUGINS, ios):ios:SUBDIRS += ios
 isEmpty(SENSORS_PLUGINS)|contains(SENSORS_PLUGINS, winrt):winrt:SUBDIRS += winrt
+isEmpty(SENSORS_PLUGINS)|contains(SENSORS_PLUGINS, tizen):tizen:SUBDIRS += tizen
