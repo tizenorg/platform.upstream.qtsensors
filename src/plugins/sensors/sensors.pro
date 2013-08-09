@@ -18,6 +18,10 @@ ios {
     isEmpty(SENSORS_PLUGINS): SENSORS_PLUGINS = ios generic
 }
 
+tizen {
+    isEmpty(SENSORS_PLUGINS): SENSORS_PLUGINS = tizen generic
+}
+
 isEmpty(SENSORS_PLUGINS)|contains(SENSORS_PLUGINS, dummy):SUBDIRS += dummy
 isEmpty(SENSORS_PLUGINS)|contains(SENSORS_PLUGINS, generic):SUBDIRS += generic
 isEmpty(SENSORS_PLUGINS)|contains(SENSORS_PLUGINS, simulator):simulator:SUBDIRS += simulator
@@ -26,3 +30,4 @@ isEmpty(SENSORS_PLUGINS)|contains(SENSORS_PLUGINS, linux):linux:SUBDIRS += linux
 isEmpty(SENSORS_PLUGINS)|contains(SENSORS_PLUGINS, android):android:SUBDIRS += android
 isEmpty(SENSORS_PLUGINS)|contains(SENSORS_PLUGINS, sensorfw):sensorfw:SUBDIRS += sensorfw
 isEmpty(SENSORS_PLUGINS)|contains(SENSORS_PLUGINS, ios):ios:SUBDIRS += ios
+isEmpty(SENSORS_PLUGINS)|contains(SENSORS_PLUGINS, tizen):tizen:SUBDIRS += tizen
