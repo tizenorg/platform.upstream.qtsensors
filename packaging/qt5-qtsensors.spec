@@ -1,10 +1,35 @@
+# The MIT License (MIT)
+# 
+# Copyright (c) 2013 Tomasz Olszak <olszak.tomasz@gmail.com>
+# 
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+# 
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+# 
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+
+# This file is based on qtsensors.spec from Mer project
+# http://merproject.org
+
 Name:       qt5-qtsensors
 Summary:    Qt Sensors module
-Version:    0.0git489.e533f476
-Release:    1%{?dist}
-Group:      Qt/Qt
-License:    LGPLv2.1 with exception or GPLv3
-URL:        http://qt.nokia.com
+Version:    5.2.0
+Release:    0
+Group:      Base/Libraries
+License:    LGPL-2.1+ or GPL-3.0
+URL:        http://qt.digia.com
 Source0:    %{name}-%{version}.tar.bz2
 BuildRequires:  qt5-qtcore-devel
 BuildRequires:  qt5-qtgui-devel
@@ -13,7 +38,7 @@ BuildRequires:  qt5-qtnetwork-devel
 BuildRequires:  qt5-qtdeclarative-qtquick-devel
 BuildRequires:  qt5-qmake
 BuildRequires:  fdupes
-BuildRequires:  pkgconfig(sensord-qt5)
+BuildRequires:  pkgconfig(capi-system-sensor)
 
 %description
 Qt is a cross-platform application and UI framework. Using Qt, you can
@@ -25,7 +50,7 @@ This package contains the Qt sensors module
 
 %package devel
 Summary:    Qt sensors - development files
-Group:      Qt/Qt
+Group:      Base/Libraries
 Requires:   %{name} = %{version}-%{release}
 
 %description devel
@@ -38,32 +63,32 @@ This package contains the Qt sensors module development files
 
 %package -n qt5-qtdeclarative-import-sensors
 Summary:    QtQml sensors import
-Group:      Qt/Qt
+Group:      Base/Libraries
 Requires:   %{name} = %{version}-%{release}
 Requires:   qt5-qtdeclarative
 
 %description -n qt5-qtdeclarative-import-sensors
 This package contains the Sensors import for Qtml
 
-%package plugin-sensorfw
-Summary:    sensorfw sensors plugin
-Group:      Qt/Qt
-Requires:   %{name} = %{version}-%{release}
-
-%description plugin-sensorfw
-This package contains the sensorfw plugin for sensors
-
 %package plugin-generic
 Summary:    Generic sensors plugin
-Group:      Qt/Qt
+Group:      Base/Libraries
 Requires:   %{name} = %{version}-%{release}
 
 %description plugin-generic
 This package contains the generic plugin for sensors
 
+%package plugin-tizen
+Summary:    Tizen sensors plugin
+Group:      Base/Libraries
+Requires:   %{name} = %{version}-%{release}
+
+%description plugin-tizen
+This package contains the tizen plugin for sensors
+
 %package plugin-gestures-shake
 Summary:    Shake gesture plugin
-Group:      Qt/Qt
+Group:      Base/Libraries
 Requires:   %{name} = %{version}-%{release}
 
 %description plugin-gestures-shake
@@ -71,7 +96,7 @@ This package contains the shake gesture plugin for sensors
 
 %package plugin-gestures-sensor
 Summary:    Sensor gesture plugin
-Group:      Qt/Qt
+Group:      Base/Libraries
 Requires:   %{name} = %{version}-%{release}
 
 %description plugin-gestures-sensor
@@ -85,7 +110,8 @@ This package contains the gesture plugin for sensors
 %build
 export QTDIR=/usr/share/qt5
 touch .git
-qmake -qt=5 CONFIG+=sensorfw
+qmake -qt=5 
+#CONFIG+=sensorfw
 make %{?_smp_mflags}
 
 %install
@@ -122,22 +148,21 @@ rm -f %{buildroot}/%{_libdir}/*.la
 %{_libdir}/libQt5Sensors.prl
 %{_libdir}/pkgconfig/*
 %{_includedir}/qt5/*
-%{_datadir}/qt5/mkspecs/
-%{_libdir}/cmake/
+%{_datadir}/qt5/mkspecs
+%{_libdir}/cmake
 
 %files -n qt5-qtdeclarative-import-sensors
 %defattr(-,root,root,-)
-%{_libdir}/qt5/qml/QtSensors/
-
-
-%files plugin-sensorfw
-%defattr(-,root,root,-)
-%{_libdir}/qt5/plugins/sensors/libqtsensors_sensorfw.so
-%{_sysconfdir}/xdg/QtProject/Sensors.conf
+%{_libdir}/qt5/qml/QtSensors
 
 %files plugin-generic
 %defattr(-,root,root,-)
 %{_libdir}/qt5/plugins/sensors/libqtsensors_generic.so
+
+%files plugin-tizen
+%defattr(-,root,root,-)
+%{_libdir}/qt5/plugins/sensors/libqtsensors_tizen.so
+
 
 %files plugin-gestures-shake
 %defattr(-,root,root,-)
