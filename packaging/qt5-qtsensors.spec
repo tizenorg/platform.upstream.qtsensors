@@ -31,6 +31,7 @@ Group:      Base/Libraries
 License:    LGPL-2.1+ or GPL-3.0
 URL:        http://qt.digia.com
 Source0:    %{name}-%{version}.tar.bz2
+Source1001: %{name}.manifest
 BuildRequires:  qt5-qtcore-devel
 BuildRequires:  qt5-qtgui-devel
 BuildRequires:  qt5-qtopengl-devel
@@ -106,6 +107,7 @@ This package contains the gesture plugin for sensors
 
 %prep
 %setup -q -n %{name}-%{version}/qtsensors
+cp %{SOURCE1001} .
 
 %build
 export QTDIR=/usr/share/qt5
@@ -139,11 +141,13 @@ rm -f %{buildroot}/%{_libdir}/*.la
 
 %files
 %defattr(-,root,root,-)
+%manifest %{name}.manifest
 %{_libdir}/libQt5Sensors.so.5
 %{_libdir}/libQt5Sensors.so.5.*
 
 %files devel
 %defattr(-,root,root,-)
+%manifest %{name}.manifest
 %{_libdir}/libQt5Sensors.so
 %{_libdir}/libQt5Sensors.prl
 %{_libdir}/pkgconfig/*
@@ -153,23 +157,28 @@ rm -f %{buildroot}/%{_libdir}/*.la
 
 %files -n qt5-qtdeclarative-import-sensors
 %defattr(-,root,root,-)
+%manifest %{name}.manifest
 %{_libdir}/qt5/qml/QtSensors
 
 %files plugin-generic
 %defattr(-,root,root,-)
+%manifest %{name}.manifest
 %{_libdir}/qt5/plugins/sensors/libqtsensors_generic.so
 
 %files plugin-tizen
 %defattr(-,root,root,-)
+%manifest %{name}.manifest
 %{_libdir}/qt5/plugins/sensors/libqtsensors_tizen.so
 
 
 %files plugin-gestures-shake
 %defattr(-,root,root,-)
+%manifest %{name}.manifest
 %{_libdir}/qt5/plugins/sensorgestures/libqtsensorgestures_shakeplugin.so
 
 %files plugin-gestures-sensor
 %defattr(-,root,root,-)
+%manifest %{name}.manifest
 %{_libdir}/qt5/plugins/sensorgestures/libqtsensorgestures_plugin.so
 
 
