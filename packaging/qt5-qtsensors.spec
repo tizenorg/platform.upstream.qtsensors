@@ -23,6 +23,20 @@
 # This file is based on qtsensors.spec from Mer project
 # http://merproject.org
 
+%if "%{tizen}" == "2.1"
+%define profile mobile
+%endif
+
+%if "%{tizen}" == "2.3"
+%define profile wearable
+%endif
+
+%if "%{profile}" == "mobile" || "%{profile}" == "common"
+%define _with_tizen_sensors 1
+%endif
+
+%bcond_with tizen_sensors
+
 Name:       qt5-qtsensors
 Summary:    Qt Sensors module
 Version:    5.3.0
@@ -39,7 +53,9 @@ BuildRequires:  qt5-qtnetwork-devel
 BuildRequires:  qt5-qtdeclarative-qtquick-devel
 BuildRequires:  qt5-qmake
 BuildRequires:  fdupes
+%if %{with tizen_sensors}
 BuildRequires:  pkgconfig(capi-system-sensor)
+%endif
 
 %description
 Qt is a cross-platform application and UI framework. Using Qt, you can
@@ -79,6 +95,7 @@ Requires:   %{name} = %{version}-%{release}
 %description plugin-generic
 This package contains the generic plugin for sensors
 
+%if %{with tizen_sensors}
 %package plugin-tizen
 Summary:    Tizen sensors plugin
 Group:      Base/Libraries
@@ -86,6 +103,7 @@ Requires:   %{name} = %{version}-%{release}
 
 %description plugin-tizen
 This package contains the tizen plugin for sensors
+%endif
 
 %package plugin-gestures-shake
 Summary:    Shake gesture plugin
@@ -165,10 +183,12 @@ rm -f %{buildroot}/%{_libdir}/*.la
 %manifest %{name}.manifest
 %{_libdir}/qt5/plugins/sensors/libqtsensors_generic.so
 
+%if %{with tizen_sensors}
 %files plugin-tizen
 %defattr(-,root,root,-)
 %manifest %{name}.manifest
 %{_libdir}/qt5/plugins/sensors/libqtsensors_tizen.so
+%endif
 
 
 %files plugin-gestures-shake
