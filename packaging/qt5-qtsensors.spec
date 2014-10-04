@@ -124,10 +124,10 @@ This package contains the gesture plugin for sensors
 #### Build section
 
 %prep
-%setup -q -n %{name}-%{version}/qtsensors
-cp %{SOURCE1001} .
+%setup -q -n %{name}-%{version}
 
 %build
+cp %{SOURCE1001} .
 export QTDIR=/usr/share/qt5
 touch .git
 qmake -qt=5 
