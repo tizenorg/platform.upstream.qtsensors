@@ -31,10 +31,6 @@
 %define profile wearable
 %endif
 
-%if "%{profile}" == "mobile" || "%{profile}" == "common"
-%define _with_tizen_sensors 1
-%endif
-
 %bcond_with tizen_sensors
 
 Name:       qt5-qtsensors
