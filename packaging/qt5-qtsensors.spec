@@ -35,7 +35,7 @@
 
 Name:       qt5-qtsensors
 Summary:    Qt Sensors module
-Version:    5.4.0
+Version:    5.4.1
 Release:    0
 Group:      Base/Libraries
 License:    LGPL-2.1+ or GPL-3.0
@@ -100,6 +100,14 @@ Requires:   %{name} = %{version}-%{release}
 %description plugin-tizen
 This package contains the tizen plugin for sensors
 %endif
+
+%package plugin-linuxsys
+Summary:    Linux sensors plugin
+Group:      Base/Libraries
+Requires:   %{name} = %{version}-%{release}
+
+%description plugin-linuxsys
+This package contains the linux plugin for sensors
 
 %package plugin-gestures-shake
 Summary:    Shake gesture plugin
@@ -186,6 +194,10 @@ rm -f %{buildroot}/%{_libdir}/*.la
 %{_libdir}/qt5/plugins/sensors/libqtsensors_tizen.so
 %endif
 
+%files plugin-linuxsys
+%defattr(-,root,root,-)
+%manifest %{name}.manifest
+%{_libdir}/qt5/plugins/sensors/libqtsensors_linuxsys.so
 
 %files plugin-gestures-shake
 %defattr(-,root,root,-)
